@@ -1,22 +1,6 @@
 import datetime
-
-
-def import_data():
-    dict_student={}
-    with open('students.csv', 'r') as fopen:
-        content = (fopen.readlines())
-        # Remove first description line
-        content.pop(0)
-        # Read line in file
-        for line in content:
-            # Remove endline sign
-            line = line.strip('\n')
-            # Split file value
-            values=line.split(';',',')
-            # Make dictionary from file value
-            key_name=(f"{values[0]}_{values[1]}_{values[2]}")
-            dict_student[key_name]=values
-        return dict_student
+import file_operation as file
+import check_file
 
 
 def make_massages(persons):
@@ -34,14 +18,12 @@ if you submit all assignments in 1 month.\n\n\
 
 
 def save_to_file(file_name, content):
-    with open(f'{file_name}.txt', 'a', encoding='utf-8') as file_massage:
-        file_massage.write(content)
+    check_file.do_this_with_file(f'{file_name}.txt', 'write', content)
 
 
 def main():
 
-    #students = {'8a_Pawel_Kowalski': ['Pawel', 'Kowalski', 32, 2], '2b_Ida_Nowak': ['Ida', 'Nowak', 2, 4]}
-    students = import_data()
+    students = file.import_data('students.csv')
     make_massages(students)
 
 
